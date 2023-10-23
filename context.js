@@ -33,15 +33,22 @@ const AppProvider = function ({ children }) {
 
   const [searchTerm, setSearchTerm] = useState("");
 
+  const [favourites, setFavourites] = useState([]);
+
   const moviesCategory = (value) => {
     dispatch({ type: "HANDLE_CATEGORY", payload: value });
   };
 
-  const addBookmark = (index) => {
-    dispatch({ type: "ADD_BOOKMARK", payload: { index } });
-  };
+  // const addBookmark = (data) => {
+  //   //console.log(data.title);
+  //   dispatch({ type: "ADD_BOOKMARK", payload: { data } });
+  // };
   const removeBookmark = (movie, index) => {
     dispatch({ type: "REMOVE_BOOKMARK", payload: { movie, index } });
+  };
+
+  const addBookmark = (movie) => {
+    dispatch({ type: "ADD_BOOKMARK", payload: movie });
   };
 
   return (

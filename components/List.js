@@ -3,14 +3,20 @@ import Image from "next/image";
 import { BsDot } from "react-icons/bs";
 import Svg from "../public/assets/icon-nav-tv-series.svg";
 import { useGlobalContext } from "@/context";
-import { useParams } from "react-router-dom";
 
-const List = ({ title, category, rating, year, thumbnail }) => {
-  const { index } = useParams;
+const List = ({ index, title, category, rating, year, thumbnail }) => {
   const { addBookmark, removeBookmark } = useGlobalContext();
 
+  const movieData = {
+    index,
+    title,
+    category,
+    rating,
+    year,
+    thumbnail,
+  };
   return (
-    <section className="">
+    <section key={index} className="">
       <div>
         <Image
           src={`/${thumbnail.regular.large}`}
@@ -21,7 +27,8 @@ const List = ({ title, category, rating, year, thumbnail }) => {
           alt={title}
         />
         <div>
-          <button onClick={() => addBookmark(index)}>addBookmark</button>
+          <button onClick={() => addBookmark(movieData)}>bookmark</button>
+
           <button onClick={() => removeBookmark()}>removeBookmark</button>
         </div>
         <div className="mt-2 text-[13px] font-light flex gap-x-2 opacity-50">

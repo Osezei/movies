@@ -3,16 +3,18 @@ import { data } from "@/data";
 import { useGlobalContext } from "@/context";
 import List from "./List";
 import Trending from "./Trending";
+import Link from "next/link";
 import Movie from "./Movie";
 import User from "../public/assets/image-avatar.png";
 import Image from "next/image";
 import HomeButton from "../public/assets/logo.svg";
-import None from "./None";
 import { TbMovie } from "react-icons/tb";
-//import { FaBookmark } from "react-icons/fa";
+import { FaBookmark } from "react-icons/fa";
 import { BiGridSmall } from "react-icons/bi";
 import { BsCameraReelsFill } from "react-icons/bs";
 import { BiSearch } from "react-icons/bi";
+
+import Bookmark from "@/pages/bookmark";
 
 const Search = () => {
   const {
@@ -22,9 +24,8 @@ const Search = () => {
     moviesCategory,
     activeFilter,
     addBookmark,
+    removeBookmark,
   } = useGlobalContext();
-
-  const noOfMovies = movie_list.length;
 
   let category = [];
 
@@ -40,7 +41,14 @@ const Search = () => {
       <div className="flex gap-x-9 justify-center">
         <div className="bg-[#161D2F] h-[960px] w-[96px] mt-8 rounded-lg">
           <ul className="mt-[35.4px] mb-[75px] flex justify-center">
-            <Image src={HomeButton} width={32} height={25.6} alt="homebutton" />
+            <Link href="/">
+              <Image
+                src={HomeButton}
+                width={32}
+                height={25.6}
+                alt="homebutton"
+              />
+            </Link>
           </ul>
           <ul className="cursor-pointer h-[180px] flex flex-col justify-between text-center">
             {["all", ...new Set(category)].map((item, index) => {
@@ -91,20 +99,29 @@ const Search = () => {
               }
 
               return (
-                <li
-                  key={index}
-                  onClick={() => {
-                    moviesCategory(item);
-                    //console.log(item);
-                  }}
-                  className={`text-sm capitalize text-white ease-in-out duration-300 ${
-                    activeFilter === item ? "opacity-100" : "opacity-25"
-                  }`}
-                >
-                  {item}
-                </li>
+                <>
+                  <li
+                    key={index}
+                    onClick={() => {
+                      moviesCategory(item);
+                      //console.log(item);
+                    }}
+                    className={`text-sm capitalize text-white ease-in-out duration-300 ${
+                      activeFilter === item ? "opacity-100" : "opacity-25"
+                    }`}
+                  >
+                    {item}
+                  </li>
+                </>
               );
             })}
+          </ul>
+          <ul
+            className={`text-[28px] capitalize ease-in-out duration-300 flex justify-center mt-14`}
+          >
+            <Link href="/bookmark">
+              <FaBookmark />
+            </Link>
           </ul>
           <ul className="mt-[552px] flex justify-center">
             <Image src={User} width={40} height={40} alt="user" />
@@ -118,6 +135,7 @@ const Search = () => {
             <p className="my-auto text-white pr-6 text-2xl">
               <BiSearch />
             </p>
+
             <input
               index="searchInput"
               type="text"
@@ -132,45 +150,40 @@ const Search = () => {
           {/* movie list */}
 
           <div className=" ">
-            {/* <h3 className="text-[32px] font-light text-white mb-8">
+            <h3 className="text-[32px] font-light text-white mb-8">
               Recommmended for you
-            </h3> */}
-            {/* {moviesCategory === "Movie" ? "okau" : "hello"} */}
-
+            </h3>
             <div className="flex flex-wrap gap-x-10 gap-y-8">
               {movie_list
-                .filter((val) => {
+                ?.filter((val) => {
                   if (searchTerm === "") {
                     return val;
                   } else if (
                     val.title.toLowerCase().includes(searchTerm.toLowerCase())
                   ) {
-                    const noOfSearch = movie_list.length;
-                    console.log(noOfSearch);
-                    return (
-                      <>
-                        <h1> {noOfSearch}</h1>
-                        <div>{val}</div>
-                      </>
-                    );
+                    return val;
                   }
                 })
 
-                .map((val, index) => {
-                  // if (val.isTrending === true && movie_list.length === 29) {
-                  //   return <Trending key={index} {...val} className="" />;
-                  // }
-                  // if (movie_list.length === "3") {
-                  //   return <None key={index} {...val} />;
-                  // }
-                  if (val.category === "Movie") {
-                    return <Movie key={index} {...val} />;
-                  } else {
-                    return <List key={index} {...val} />;
-                  }
+                .map((val) => {
+                  // if (val.category === "Movie") {
+                  //   return <Movie key={index} {...val} />;
+                  // } else {}
+                  //const {} = bookmarkMovie;
+                  const { id, title } = val;
+                  return (
+                    <article key={id}>
+                      <p>{title}</p>
+                      <button onClick={() => addBookmark(val)}>bookmark</button>
+                      <button onClick={() => removeBookmark(val)}>
+                        removeBookmark
+                      </button>
+                    </article>
+                  );
                 })}
             </div>
           </div>
+
           {/* movie list end */}
         </div>
       </div>
