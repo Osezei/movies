@@ -2,29 +2,29 @@ import React from "react";
 import { Layout } from "@/components/Layout";
 
 import { useGlobalContext } from "@/context";
+import Card from "@/components/Card";
 
-const Bookmark = () => {
+const Bookmark = ({}) => {
   const activePage = "bookmark";
   const { bookmark, removeBookmark } = useGlobalContext();
 
+  //const { title, id } = movieList;
   // <span>
   //   {bookmark.length} {watched.length === 1 ? "movie" : "movies"}
   // </span>;
 
   if (bookmark.length < 1) {
-    return <p className="text-white">nothing to show</p>;
+    return (
+      <Layout activePage={activePage}>
+        <p className="text-white">nothing to show</p>
+      </Layout>
+    );
   } else
     return (
       <Layout activePage={activePage}>
         <section className="text-white">
-          {bookmark.map((item) => {
-            const { title, id } = item;
-            return (
-              <article key={id}>
-                <p>{title}</p>
-                <button onClick={() => removeBookmark(id)}>remove</button>
-              </article>
-            );
+          {bookmark.map((movie) => {
+            return <article key={movie.id}>{movie.title}</article>;
           })}
         </section>
       </Layout>

@@ -1,5 +1,6 @@
 import { Layout } from "@/components/Layout";
 import { useGlobalContext } from "@/context";
+import Card from "@/components/Card";
 
 export default function Home() {
   const activePage = "home";
@@ -7,8 +8,7 @@ export default function Home() {
 
   return (
     <Layout activePage={activePage}>
-      <section className="text-white">{/* <Search /> */}</section>
-      <section>
+      <section className="grid grid-cols-4 gap-x-10 gap-y-8">
         {/* <p>{searchTerm.length}</p> */}
 
         {movie_list
@@ -24,21 +24,8 @@ export default function Home() {
           })
 
           .map((movie) => {
-            const listNumber = movie.length;
             //console.log(listNumber);
-            if (listNumber < 1) {
-              return (
-                <>
-                  <p className="text-white">nothing available</p>
-                </>
-              );
-            }
-
-            return (
-              <article key={movie.id}>
-                <p>{movie.title}</p>
-              </article>
-            );
+            return <Card key={movie.id} {...movie} />;
           })}
       </section>
     </Layout>

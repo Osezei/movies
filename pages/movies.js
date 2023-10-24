@@ -1,6 +1,7 @@
 import React from "react";
 import { Layout } from "@/components/Layout";
 import { useGlobalContext } from "@/context";
+import Card from "@/components/Card";
 
 const Movies = () => {
   const activePage = "movies";
@@ -17,7 +18,7 @@ const Movies = () => {
 
   return (
     <Layout activePage={activePage}>
-      <section>
+      <section className="grid grid-cols-4 gap-x-10 gap-y-8">
         {/* <p>{searchTerm.length}</p> */}
 
         {movie_movie
@@ -44,11 +45,7 @@ const Movies = () => {
             //   );
             // }
 
-            return (
-              <article key={movie.id}>
-                <p>{movie.title}</p>
-              </article>
-            );
+            return <Card key={movie.id} {...movie} />;
           })}
       </section>
     </Layout>

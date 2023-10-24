@@ -48,7 +48,7 @@ const AppProvider = function ({ children }) {
   };
 
   const addBookmark = (movie) => {
-    dispatch({ type: "ADD_BOOKMARK", payload: movie });
+    dispatch({ type: "ADD_BOOKMARK", payload: { movie } });
   };
 
   return (

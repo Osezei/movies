@@ -56,7 +56,7 @@ const reducer = (state, action) => {
 
   if (action.type === "ADD_BOOKMARK") {
     state.bookmark.filter((movie) => movie.id === action.payload);
-    console.log(action.payload);
+    //console.log(action.payload);
 
     return {
       ...state,
