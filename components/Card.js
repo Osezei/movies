@@ -3,8 +3,15 @@ import { useGlobalContext } from "@/context";
 import Image from "next/image";
 import Svg from "../public/assets/icon-nav-tv-series.svg";
 import { BsDot } from "react-icons/bs";
+import { TbMovie } from "react-icons/tb";
 
 const Card = ({ title, id, year, category, rating, thumbnail }) => {
+  const movieData = {
+    title,
+    id,
+    year,
+    category,
+  };
   const { addBookmark } = useGlobalContext();
   return (
     <article key={id}>
@@ -23,13 +30,19 @@ const Card = ({ title, id, year, category, rating, thumbnail }) => {
             <BsDot />
           </p>
           <p className="flex">
-            <Image
-              src={Svg}
-              width={12}
-              height={12}
-              alt="svg"
-              className="mr-[6px] object-contain my-auto"
-            />
+            {category === "TV Series" ? (
+              <Image
+                src={Svg}
+                width={12}
+                height={12}
+                alt="svg"
+                className="mr-[6px] object-contain my-auto"
+              />
+            ) : (
+              <span className="my-auto mr-[6px]">
+                <TbMovie />
+              </span>
+            )}
             {category}
           </p>
           <p className="my-auto">
@@ -41,7 +54,7 @@ const Card = ({ title, id, year, category, rating, thumbnail }) => {
           <p className="text-[18px] font-medium">{title}</p>
         </div>
       </section>
-      <button onClick={() => addBookmark(id)}>bookmark</button>
+      <button onClick={() => addBookmark(movieData)}>bookmark</button>
     </article>
   );
 };

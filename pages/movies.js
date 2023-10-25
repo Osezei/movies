@@ -18,35 +18,38 @@ const Movies = () => {
 
   return (
     <Layout activePage={activePage}>
-      <section className="grid grid-cols-4 gap-x-10 gap-y-8">
-        {/* <p>{searchTerm.length}</p> */}
+      <section className="">
+        <p className="capitalize mt-[35px] mb-[38px] leading-[-0.5px] text-[32px] font-light">
+          {activePage}
+        </p>
+        <div className="grid grid-cols-4 gap-x-10 gap-y-8">
+          {movie_movie
 
-        {movie_movie
+            .filter((movie) => {
+              if (searchTerm === "") {
+                // end
+                return movie;
+              } else if (
+                movie.title.toLowerCase().includes(searchTerm.toLowerCase())
+              ) {
+                return movie;
+              }
+            })
 
-          .filter((movie) => {
-            if (searchTerm === "") {
-              // end
-              return movie;
-            } else if (
-              movie.title.toLowerCase().includes(searchTerm.toLowerCase())
-            ) {
-              return movie;
-            }
-          })
+            .map((movie) => {
+              //const listNumber = movie.length;
+              //console.log(listNumber);
+              // if (listNumber < 1) {
+              //   return (
+              //     <>
+              //       <p className="text-white">nothing available</p>
+              //     </>
+              //   );
+              // }
 
-          .map((movie) => {
-            //const listNumber = movie.length;
-            //console.log(listNumber);
-            // if (listNumber < 1) {
-            //   return (
-            //     <>
-            //       <p className="text-white">nothing available</p>
-            //     </>
-            //   );
-            // }
-
-            return <Card key={movie.id} {...movie} />;
-          })}
+              return <Card key={movie.id} {...movie} />;
+            })}
+        </div>
       </section>
     </Layout>
   );

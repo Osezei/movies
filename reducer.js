@@ -55,11 +55,15 @@ const reducer = (state, action) => {
   //}
 
   if (action.type === "ADD_BOOKMARK") {
-    state.bookmark.filter((movie) => movie.id === action.payload);
+    //state.bookmark.filter((movie) => movie.id === action.payload);
     //console.log(action.payload);
 
     return {
       ...state,
+      bookmark: state.bookmark.filter(
+        (movie) => movie.id !== action.payload.id
+      ),
+
       bookmark: [action.payload, ...state.bookmark],
     };
   }

@@ -9,8 +9,6 @@ export default function Home() {
   return (
     <Layout activePage={activePage}>
       <section className="grid grid-cols-4 gap-x-10 gap-y-8">
-        {/* <p>{searchTerm.length}</p> */}
-
         {movie_list
 
           .filter((movie) => {

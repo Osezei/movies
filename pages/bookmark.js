@@ -4,7 +4,7 @@ import { Layout } from "@/components/Layout";
 import { useGlobalContext } from "@/context";
 import Card from "@/components/Card";
 
-const Bookmark = ({}) => {
+const Bookmark = () => {
   const activePage = "bookmark";
   const { bookmark, removeBookmark } = useGlobalContext();
 
@@ -24,7 +24,7 @@ const Bookmark = ({}) => {
       <Layout activePage={activePage}>
         <section className="text-white">
           {bookmark.map((movie) => {
-            return <article key={movie.id}>{movie.title}</article>;
+            return <article key={movie.id}>hello</article>;
           })}
         </section>
       </Layout>
