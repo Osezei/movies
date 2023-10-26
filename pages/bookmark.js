@@ -3,15 +3,15 @@ import { Layout } from "@/components/Layout";
 
 import { useGlobalContext } from "@/context";
 import Card from "@/components/Card";
+import Saved from "@/components/Saved";
 
-const Bookmark = () => {
+const Bookmark = ({ id, title }) => {
   const activePage = "bookmark";
+  // const movie = {
+  //   id,
+  //   title,
+  // };
   const { bookmark, removeBookmark } = useGlobalContext();
-
-  //const { title, id } = movieList;
-  // <span>
-  //   {bookmark.length} {watched.length === 1 ? "movie" : "movies"}
-  // </span>;
 
   if (bookmark.length < 1) {
     return (
@@ -24,7 +24,7 @@ const Bookmark = () => {
       <Layout activePage={activePage}>
         <section className="text-white">
           {bookmark.map((movie) => {
-            return <article key={movie.id}>hello</article>;
+            return <Saved key={movie.id} {...movie} />;
           })}
         </section>
       </Layout>

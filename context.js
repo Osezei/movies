@@ -25,15 +25,12 @@ const AppProvider = function ({ children }) {
     allMovies: data,
     activeFilter: "all",
     isTrending: false,
-    total_movies: 0,
     bookmark: [],
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const [searchTerm, setSearchTerm] = useState("");
-
-  const [favourites, setFavourites] = useState([]);
 
   const moviesCategory = (value) => {
     dispatch({ type: "HANDLE_CATEGORY", payload: value });

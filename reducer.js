@@ -19,15 +19,6 @@ const reducer = (state, action) => {
     };
   }
 
-  // if (action.type === "ADD_BOOKMARK") {
-  //   let bookmark = state.allMovies;
-  //   bookmark = bookmark.filter((movies) => movies.id === action.payload);
-  //   console.log(action.payload);
-  //   return {
-  //     ...state,
-  //   };
-  // }
-
   if (action.type === "REMOVE_BOOKMARK") {
     state.bookmark.filter((movie) => movie.id !== action.payload);
     //console.log(action.payload);
@@ -39,7 +30,7 @@ const reducer = (state, action) => {
   // if (action.type === "ADD_BOOKMARK") {
   //   state.bookmark.push(action.payload);
 
-  //   console.log(action.payload);
+  //   //console.log(action.payload);
   //   return {
   //     ...state,
   //   };
@@ -56,7 +47,7 @@ const reducer = (state, action) => {
 
   if (action.type === "ADD_BOOKMARK") {
     //state.bookmark.filter((movie) => movie.id === action.payload);
-    //console.log(action.payload);
+    // console.log(action.payload);
 
     return {
       ...state,
@@ -66,26 +57,7 @@ const reducer = (state, action) => {
 
       bookmark: [action.payload, ...state.bookmark],
     };
-  }
-
-  // if (action.type === "ADD_BOOKMARK") {
-  //   let bookmark = [];
-  //   state.bookmark.includes((movie) => {
-  //     let movieArray = movie.id;
-  //     if (!bookmark.includes(movieArray)) {
-  //       bookmark.push(action.payload);
-  //       return {
-  //         movieArray,
-  //       };
-  //     }
-  //   });
-
-  //   return {
-  //     ...state,
-  //     bookmark: [action.payload, ...bookmark],
-  //   };
-  // }
-  else {
+  } else {
     throw new Error(`No Matching '${action.type}' - action type`);
   }
 };

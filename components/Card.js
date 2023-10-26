@@ -6,17 +6,21 @@ import { BsDot } from "react-icons/bs";
 import { TbMovie } from "react-icons/tb";
 
 const Card = ({ title, id, year, category, rating, thumbnail }) => {
-  const movieData = {
-    title,
+  const { addBookmark } = useGlobalContext();
+  let image = `/${thumbnail.regular.small}`;
+  const movie = {
     id,
+    title,
     year,
     category,
+    rating,
+    thumbnail,
   };
-  const { addBookmark } = useGlobalContext();
   return (
     <article key={id}>
       <Image
-        src={`/${thumbnail.regular.small}`}
+        //src={`/${thumbnail.regular.small}`}
+        src={image}
         width={280}
         height={174}
         alt={title}
@@ -54,7 +58,7 @@ const Card = ({ title, id, year, category, rating, thumbnail }) => {
           <p className="text-[18px] font-medium">{title}</p>
         </div>
       </section>
-      <button onClick={() => addBookmark(movieData)}>bookmark</button>
+      <button onClick={() => addBookmark(movie, movie.id)}>bookmark</button>
     </article>
   );
 };
