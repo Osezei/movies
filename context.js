@@ -2,61 +2,32 @@ import React, {
   useContext,
   useReducer,
   useEffect,
-  useRef,
+  createContext,
   useState,
 } from "react";
-import { data } from "./data";
-import reducer from "./reducer";
 
 const AppContext = React.createContext();
 
 const AppProvider = function ({ children }) {
-  // const getLocalStorage = () => {
-  //   let bookmark = localStorage.getItem("bookmark");
-  //   if (bookmark) {
-  //     return JSON.parse(localStorage.getItem("bookmark"));
-  //   } else {
-  //     return [];
-  //   }
-  // };
+  const [data, setData] = useState([]);
+  const { inputValue, setInputValue } = useState("");
+  const { stockData, setStockData } = useState([]);
+  const [fetchData, setFetchData] = useState([]);
 
-  const initialState = {
-    movie_list: data,
-    allMovies: data,
-    activeFilter: "all",
-    isTrending: false,
-    bookmark: [],
-  };
-
-  const [state, dispatch] = useReducer(reducer, initialState);
-
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const moviesCategory = (value) => {
-    dispatch({ type: "HANDLE_CATEGORY", payload: value });
-  };
-
-  // const addBookmark = (data) => {
-  //   //console.log(data.title);
-  //   dispatch({ type: "ADD_BOOKMARK", payload: { data } });
-  // };
-  const removeBookmark = (movie, index) => {
-    dispatch({ type: "REMOVE_BOOKMARK", payload: { movie, index } });
-  };
-
-  const addBookmark = (movie) => {
-    dispatch({ type: "ADD_BOOKMARK", payload: { movie } });
+  //search menu
+  const updateSearch = (value) => {
+    setInputValue(value);
+    const newList = setData.filter((item) => item.title.includes(value));
+    setData(newList);
   };
 
   return (
     <AppContext.Provider
       value={{
-        ...state,
-        moviesCategory,
-        searchTerm,
-        setSearchTerm,
-        addBookmark,
-        removeBookmark,
+        data,
+        inputValue,
+        updateSearch,
+        fetchData,
       }}
     >
       {children}

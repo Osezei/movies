@@ -1,22 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { useGlobalContext } from "@/context";
 import { BiSearch } from "react-icons/bi";
 
-const SearchMovies = ({ activePage }) => {
-  const { setSearchTerm } = useGlobalContext();
+const SearchMovies = ({ placeholder }) => {
+  const { fetchData, inputValue } = useGlobalContext();
 
   return (
     <section className="flex mb-[35px]">
       <p className="my-auto text-white pr-6 text-2xl">
         <BiSearch />
       </p>
-      <form>
+      <form onSubmit={(e) => e.preventDefault()}>
         <input
           index="searchInput"
           type="text"
-          placeholder={`Search for ${activePage}`}
+          placeholder={placeholder}
+          value={inputValue}
           onChange={(event) => {
-            setSearchTerm(event.target.value);
+            fetchData(event.target.value);
           }}
           className="text-white bg-transparent w-[400px] focus:outline-none capitalize"
         />
