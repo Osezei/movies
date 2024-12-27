@@ -1,27 +1,27 @@
-import { Layout } from "@/components/Layout";
 import { useGlobalContext } from "@/context";
-import Card from "@/components/Card";
-import SearchMovies from "@/components/SearchMovies";
+import SearchBar from "@/components/SearchBar";
 import MovieList from "@/components/MovieList";
+import Navigation from "@/components/Navigation";
+import BookmarkList from "@/components/BookmarkList";
+import Trending from "@/components/Trending";
 
 export default function Home() {
-  const activePage = "home";
-  const { data, inputValue, updateSearch } = useGlobalContext();
+  //const activePage = "home";
+  const {
+    data,
+    sortedData,
+    search,
+    handleSearch,
+    toggleBookmark,
+    switchCategory,
+  } = useGlobalContext();
 
   return (
-    <Layout activePage={activePage}>
-      {inputValue ? (
-        <MovieList
-          data={data}
-          title={`Found ${data.length > 0 ? data.length : "no"} result${
-            data.length > 1 ? "s" : ""
-          } for '${inputValue}'`}
-        />
-      ) : (
-        <>
-          <MovieList title="Recommended for you" />
-        </>
-      )}
-    </Layout>
+    <>
+      <Navigation switchCategory={switchCategory} />
+      <SearchBar search={search} handleSearch={handleSearch} />
+
+      <MovieList sortedData={sortedData} toggleBookmark={toggleBookmark} />
+    </>
   );
 }
